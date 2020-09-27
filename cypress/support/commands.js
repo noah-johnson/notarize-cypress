@@ -26,6 +26,11 @@ import 'cypress-file-upload';
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('open', (portal, path, options) => {
+  const environment = Cypress.env('environment');
+  return cy.visit(`${portal}.${environment}.notarize.com/${path}`, options);
+});
+
 Cypress.Commands.add("login", (email, password) => {
   cy.get('[data-automation-id="email-field"]').type(email);
   cy.get('[data-automation-id="password-field"]').type(password);

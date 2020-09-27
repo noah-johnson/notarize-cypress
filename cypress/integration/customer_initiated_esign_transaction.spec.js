@@ -1,11 +1,12 @@
 /// <reference types="Cypress" />
+const signer = require("../assets/data").signer;
 
 describe("customer_initiated_esign_transaction", () => {
   it("allows a signer to upload and esign a document", () => {
     const testFile = "../assets/test_doc_1.pdf";
 
-    cy.visit("app url");
-    cy.login("username", "password");
+    cy.open("app", "login");
+    cy.login(signer.email, signer.password);
 
     upload(testFile);
     sign();
