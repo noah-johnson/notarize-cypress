@@ -16,6 +16,11 @@
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  on('before:browser:launch', (browser = {}, launchOptions) => {
+    if (browser.family === 'chromium' && browser.name !== 'electron') {
+      // Mac/Linux
+      launchOptions.args.push('--use-file-for-fake-video-capture=cypress/fixtures/MA_driver_license_sample.y4m')
+    }
+    return launchOptions
+  })
 }
